@@ -1,9 +1,36 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import axios from "axios";
+import { ContactsGet } from "../models";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Pagination,
+  Stack,
+} from "@mui/material";
+import { useState } from "react";
+import { useRouter } from 'next/router'
 
-const Home: NextPage = () => {
+const Home: NextPage<ContactsGet> = (props) => {
+
+  const [contacts, setContacts] = useState(props.results);
+
+
+  const fetchContactsPerPage = async (page: number) => {
+     const data: ContactsGet = await axios
+     .get(
+       process.env.NEXT_PUBLIC_API! + `?page=${page}&perPage=10`
+     ).then((response) => {
+      return response.data;
+    });
+
+    setContacts(data.results);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,44 +40,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <nav aria-label="secondary mailbox folders">
+          <List>
+            {contacts.map((contact) => (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={`${contact.firstName} ${contact.lastName}`}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            ))}
+          </List>
+        </nav>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Stack spacing={2}>
+          <Pagination count={props.totalPages} onChange={(e, page)=> fetchContactsPerPage(page)}/>
+        </Stack>
       </main>
 
       <footer className={styles.footer}>
@@ -59,14 +67,35 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
+};
+
+export async function getServerSideProps() {
+
+  const data: ContactsGet = await axios
+    .get(
+      process.env.NEXT_PUBLIC_API!
+    )
+    .then((response) => {
+      return response.data;
+    });
+
+  return {
+    props: {
+      count: data.count,
+      perPage: data.perPage,
+      currentPage: data.currentPage,
+      totalPages: data.totalPages,
+      results: data.results,
+    },
+  };
 }
 
-export default Home
+export default Home;
