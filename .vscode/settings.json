@@ -1,0 +1,27 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // Add those two lines:
+  "editor.formatOnSave": true, // Tell VSCode to format files on save
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Tell VSCode to use Prettier as default file formatter
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "eslint.enable": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#004C67",
+    "titleBar.activeBackground": "#0084B4",
+    "titleBar.activeForeground": "#EBF5F9"
+  }
+}

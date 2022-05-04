@@ -1,133 +1,63 @@
-import {
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  InputLabel,
-  Snackbar,
-} from "@mui/material";
-import type { NextPage } from "next";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { contactSchema } from "../../yup/contactForm";
-import { ContactForm, SnackBar } from "../../models";
-import axios from "axios";
-import { useState } from "react";
-import React from "react";
-import CloseIcon from '@mui/icons-material/Close';
+import type { NextPage } from 'next'
+import { ContactFormModel, SnackBarProperties } from '../../models'
+import axios from 'axios'
+import { FC, useState } from 'react'
+import React from 'react'
 
-const About: NextPage<any> = () => {
-  const [snackBar, setSnackBar] = useState<SnackBar>({
+import { ContactsFormComponent } from '../../components/ContactsForm'
+import { SnackBarComponent } from '../../components/SnackBar'
+
+const Create: FC<NextPage> = () => {
+  const [snackBar, setSnackBar] = useState<SnackBarProperties>({
     status: false,
-    message: "",
-  });
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactForm>({
-    resolver: yupResolver(contactSchema),
-  });
+    message: '',
+  })
 
   const handleClose = (
-    event: React.SyntheticEvent | Event,
+    _event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
 
     setSnackBar({
       status: false,
-      message: "",
-    });
-  };
+      message: '',
+    })
+  }
 
-  const onSubmit = async (contact: ContactForm) => {
-    const req = await axios
+  const createContact = (
+    contact: ContactFormModel,
+    reset: () => void
+  ): void => {
+    axios
       .post(process.env.NEXT_PUBLIC_API!, contact)
-      .then(function (response) {
-        setSnackBar({ message: "New contact added", status: true });
-        return response;
+      .then(function () {
+        setSnackBar({ message: 'New contact added', status: true })
+        reset()
       })
       .catch(function (error) {
-        setSnackBar({ message: error?.response?.data?.message, status: true });
-        return error;
-      });
-  };
-
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+        const err = error?.response?.data
+        if (err?.data?.errors?.phone) {
+          setSnackBar({ message: err.data?.errors.phone[0], status: true })
+        } else {
+          setSnackBar({ message: err.message, status: true })
+        }
+      })
+  }
 
   return (
     <>
-      {snackBar.message && (
-        <Snackbar
-          open={snackBar.status}
-          autoHideDuration={6000}
-          message={snackBar.message}
-          onClose={handleClose}
-          action={action}
+      {snackBar?.message && (
+        <SnackBarComponent
+          payload={snackBar}
+          handleClose={handleClose as never}
         />
       )}
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <InputLabel htmlFor="first-name">First name</InputLabel>
-          <Input
-            id="first-name"
-            {...register("firstName")}
-            aria-describedby="my-helper-text"
-          />
-          <p>{errors.firstName?.message}</p>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel htmlFor="last-name">Last name</InputLabel>
-          <Input
-            id="last-name"
-            {...register("lastName")}
-            aria-describedby="my-helper-text"
-          />
-          <p>{errors.lastName?.message}</p>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel htmlFor="email">Email</InputLabel>
-          <Input
-            id="email"
-            {...register("email")}
-            aria-describedby="my-helper-text"
-          />
-          <p>{errors.email?.message}</p>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel htmlFor="phone">Phone</InputLabel>
-          <Input
-            id="phone"
-            {...register("phone")}
-            aria-describedby="my-helper-text"
-          />
-          <p>{errors.phone?.message}</p>
-        </FormControl>
-
-        <Button type="submit">Submit</Button>
-      </form>
+      <ContactsFormComponent onSubmit={createContact} />
     </>
-  );
-};
+  )
+}
 
-export default About;
+export default Create

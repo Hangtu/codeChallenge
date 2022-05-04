@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import axios from "axios";
-import { ContactsGet } from "../models";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '../styles/Home.module.css'
+import axios from 'axios'
+import { ContactsGetModel } from '../models'
 import {
   List,
   ListItem,
@@ -11,24 +11,20 @@ import {
   ListItemText,
   Pagination,
   Stack,
-} from "@mui/material";
-import { useState } from "react";
-import { useRouter } from 'next/router'
+} from '@mui/material'
+import { useState } from 'react'
 
-const Home: NextPage<ContactsGet> = (props) => {
-
-  const [contacts, setContacts] = useState(props.results);
-
+const Home: NextPage<ContactsGetModel> = (props) => {
+  const [contacts, setContacts] = useState(props.results)
 
   const fetchContactsPerPage = async (page: number) => {
-     const data: ContactsGet = await axios
-     .get(
-       process.env.NEXT_PUBLIC_API! + `?page=${page}&perPage=10`
-     ).then((response) => {
-      return response.data;
-    });
+    const data: ContactsGetModel = await axios
+      .get(process.env.NEXT_PUBLIC_API! + `?page=${page}&perPage=10`)
+      .then((response) => {
+        return response.data
+      })
 
-    setContacts(data.results);
+    setContacts(data.results)
   }
 
   return (
@@ -57,7 +53,10 @@ const Home: NextPage<ContactsGet> = (props) => {
         </nav>
 
         <Stack spacing={2}>
-          <Pagination count={props.totalPages} onChange={(e, page)=> fetchContactsPerPage(page)}/>
+          <Pagination
+            count={props.totalPages}
+            onChange={(e, page) => fetchContactsPerPage(page)}
+          />
         </Stack>
       </main>
 
@@ -67,25 +66,22 @@ const Home: NextPage<ContactsGet> = (props) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  );
-};
+  )
+}
 
 export async function getServerSideProps() {
-
-  const data: ContactsGet = await axios
-    .get(
-      process.env.NEXT_PUBLIC_API!
-    )
+  const data: ContactsGetModel = await axios
+    .get(process.env.NEXT_PUBLIC_API!)
     .then((response) => {
-      return response.data;
-    });
+      return response.data
+    })
 
   return {
     props: {
@@ -95,7 +91,7 @@ export async function getServerSideProps() {
       totalPages: data.totalPages,
       results: data.results,
     },
-  };
+  }
 }
 
-export default Home;
+export default Home
