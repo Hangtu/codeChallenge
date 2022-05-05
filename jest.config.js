@@ -26,9 +26,6 @@ module.exports = {
       https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '^.+\\.module\\.(css|sass|scss)$',
-  ],
+  transformIgnorePatterns: ['/node_modules/(?!@hookform/*).+\\.[t|j]sx?$'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 }

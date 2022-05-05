@@ -24,5 +24,5 @@ test('Display Footer Content', async () => {
       submitText={mockup.submitText}
     />
   )
-  expect(screen.getByText('Honorato')).toBeInTheDocument()
+  expect(screen.getByText('Update')).toBeInTheDocument()
 })
