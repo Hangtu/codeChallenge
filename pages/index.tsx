@@ -85,6 +85,7 @@ const Home: NextPage<ContactsGetModel> = (props) => {
 
       <Stack spacing={2}>
         <Pagination
+          data-testid="pagination"
           count={props.totalPages}
           onChange={(e, page) => fetchContactsPerPage(page)}
         />
