@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button, FormControl, Input, InputLabel } from '@mui/material'
+import { Button, FormControl, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { contactSchema } from '../../yup/contactForm'
@@ -7,10 +7,12 @@ import { ContactFormModel } from '../../models'
 
 interface ContactsFormComponentProps {
   onSubmit: (value: ContactFormModel, reset: () => void) => void
+  submitText: string
 }
 
 export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
   onSubmit,
+  submitText,
 }) => {
   const {
     register,
@@ -24,46 +26,46 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data, reset))}>
       <FormControl>
-        <InputLabel htmlFor="first-name">First name</InputLabel>
-        <Input
+        <TextField
           id="first-name"
+          label="First Name"
+          variant="outlined"
           {...register('firstName')}
-          aria-describedby="my-helper-text"
         />
         <p>{errors.firstName?.message}</p>
       </FormControl>
 
       <FormControl>
-        <InputLabel htmlFor="last-name">Last name</InputLabel>
-        <Input
+        <TextField
           id="last-name"
+          label="Last Name"
+          variant="outlined"
           {...register('lastName')}
-          aria-describedby="my-helper-text"
         />
         <p>{errors.lastName?.message}</p>
       </FormControl>
 
       <FormControl>
-        <InputLabel htmlFor="email">Email</InputLabel>
-        <Input
+        <TextField
           id="email"
+          label="Email"
+          variant="outlined"
           {...register('email')}
-          aria-describedby="my-helper-text"
         />
         <p>{errors.email?.message}</p>
       </FormControl>
 
       <FormControl>
-        <InputLabel htmlFor="phone">Phone</InputLabel>
-        <Input
+        <TextField
           id="phone"
+          label="Phone"
+          variant="outlined"
           {...register('phone')}
-          aria-describedby="my-helper-text"
         />
         <p>{errors.phone?.message}</p>
       </FormControl>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit">{submitText}</Button>
     </form>
   )
 }

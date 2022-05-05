@@ -55,7 +55,7 @@ const Create: FC<NextPage> = () => {
           handleClose={handleClose as never}
         />
       )}
-      <ContactsFormComponent onSubmit={createContact} />
+      <ContactsFormComponent onSubmit={createContact} submitText={'Create'} />
     </>
   )
 }

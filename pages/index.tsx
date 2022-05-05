@@ -5,14 +5,20 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import { ContactsGetModel } from '../models'
 import {
+  Avatar,
+  IconButton,
   List,
   ListItem,
-  ListItemButton,
+  ListItemAvatar,
   ListItemText,
   Pagination,
   Stack,
 } from '@mui/material'
 import { useState } from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import EditIcon from '@mui/icons-material/Edit'
+import Link from 'next/link'
 
 const Home: NextPage<ContactsGetModel> = (props) => {
   const [contacts, setContacts] = useState(props.results)
@@ -40,12 +46,33 @@ const Home: NextPage<ContactsGetModel> = (props) => {
           <List>
             {contacts.map((contact) => (
               <>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={`${contact.firstName} ${contact.lastName}`}
-                    />
-                  </ListItemButton>
+                <ListItem
+                  secondaryAction={
+                    <>
+                      <IconButton edge="end" aria-label="delete">
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete">
+                        <Link
+                          href={{
+                            pathname: '/contacts/[id]/delete',
+                            query: { id: contact.id },
+                          }}
+                        >
+                          <DeleteIcon />
+                        </Link>
+                      </IconButton>
+                    </>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <AccountCircleIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${contact.firstName} ${contact.lastName}`}
+                  />
                 </ListItem>
               </>
             ))}

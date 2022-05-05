@@ -7,7 +7,7 @@ export interface ContactsGetModel {
 }
 
 export interface ContactsModel {
-  _id: string
+  id: string
   firstName: string
   lastName: string
   email: string
@@ -15,7 +15,14 @@ export interface ContactsModel {
   createdAt: string
   updatedAt: string
   __v: string
+}
+
+export interface GetContactById {
   id: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
 }
 
 export interface ContactFormModel {
