@@ -1,6 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Crud App Challenge
+
+![](https://noviello.it/content/images/2020/05/nextjs.jpg)
+
+### Description
+
+This project was developed using Next.js.
+
+The CRUD was created on different paths using the same Form component.
+
+I didn't spend a lot of time designing the user interface, I focused more on making it functional at the moment.
+
+### Frameworks & Libraries used in this project
+
+- Nextjs
+- React Hook Forms
+- Yup library for form validation
+- Axios
+- Material UI
+- React Testing Libray
+
+### Extra Features
+
+- Environment variables
+- Eslint
+- Prettier
+- Husky
+
+### Live Heroku Version
+
+This project was deployed using Heroku. Sometimes the page takes some seconds to load, just reload the page if neccesary.
+
+App live version is in [Crud App Live Version](https://crud-challenge-hang.herokuapp.com/)
 
 ## Getting Started
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
@@ -17,18 +51,3 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
