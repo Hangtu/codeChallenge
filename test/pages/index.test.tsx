@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import Home from './'
+import Home from '../../pages'
 import { render, screen } from '@testing-library/react'
-import { ContactsGetModel, ContactsModel } from '../models'
+import { ContactsGetModel, ContactsModel } from '../../models'
 
 test('Display List Content', async () => {
   const propMockup: ContactsGetModel = {
