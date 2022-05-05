@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import Navbar from './'
+import Navbar from '.'
 import { render, screen } from '@testing-library/react'
 
 test('Display Navbar Content', async () => {

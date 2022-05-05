@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import React from 'react'
-import ContactsFormComponent from './'
+import ContactsFormComponent from '.'
 import { render, screen } from '@testing-library/react'
 
 test('Display Footer Content', async () => {
