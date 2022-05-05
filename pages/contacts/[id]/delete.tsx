@@ -8,12 +8,14 @@ import { FC, useState } from 'react'
 import React from 'react'
 import { ContactsFormComponent } from '../../../components/ContactsForm'
 import { SnackBarComponent } from '../../../components/SnackBar'
+import Head from 'next/head'
 
 const DeleteContactPage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
   const [snackBar, setSnackBar] = useState<SnackBarProperties>({
     status: false,
     message: '',
   })
+  const [butonDisabled, setButonIsDisabled] = useState(false)
 
   const handleClose = (
     _event: React.SyntheticEvent | Event,
@@ -34,6 +36,7 @@ const DeleteContactPage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
       .delete(`${process.env.NEXT_PUBLIC_API!}/${contact.id}`)
       .then(function () {
         setSnackBar({ message: 'Contact Deleted', status: true })
+        setButonIsDisabled(true)
       })
       .catch(function (error) {
         const err = error?.response?.data
@@ -44,6 +47,10 @@ const DeleteContactPage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
 
   return (
     <>
+      <Head>
+        <title>Delete</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {snackBar?.message && (
         <SnackBarComponent
           payload={snackBar}
@@ -55,6 +62,7 @@ const DeleteContactPage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
         submitText={'Delete'}
         contact={contact}
         disabled
+        wasDeleted={butonDisabled}
       />
     </>
   )

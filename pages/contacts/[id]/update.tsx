@@ -9,6 +9,7 @@ import { FC, useState } from 'react'
 import React from 'react'
 import { ContactsFormComponent } from '../../../components/ContactsForm'
 import { SnackBarComponent } from '../../../components/SnackBar'
+import Head from 'next/head'
 
 const UpdatePage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
   const [snackBar, setSnackBar] = useState<SnackBarProperties>({
@@ -45,6 +46,10 @@ const UpdatePage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
 
   return (
     <>
+      <Head>
+        <title>Update</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {snackBar?.message && (
         <SnackBarComponent
           payload={snackBar}

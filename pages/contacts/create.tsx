@@ -6,6 +6,7 @@ import React from 'react'
 
 import { ContactsFormComponent } from '../../components/ContactsForm'
 import { SnackBarComponent } from '../../components/SnackBar'
+import Head from 'next/head'
 
 const Create: FC<NextPage> = () => {
   const [snackBar, setSnackBar] = useState<SnackBarProperties>({
@@ -49,6 +50,11 @@ const Create: FC<NextPage> = () => {
 
   return (
     <>
+      <Head>
+        <title>Create</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       {snackBar?.message && (
         <SnackBarComponent
           payload={snackBar}
