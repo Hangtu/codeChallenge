@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { contactSchema } from '../../yup/contactForm'
+import { contactSchema } from '../../utils/yup/contactForm'
 import { ContactFormModel, GetContactById } from '../../models'
 
 interface ContactsFormComponentProps {
@@ -51,9 +51,10 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
             disabled={wasDeleted}
             id="first-name"
             label="First Name"
-            variant="outlined"
+            variant="filled"
             defaultValue={contact?.firstName || ''}
             {...register('firstName')}
+            error={!!errors?.firstName?.message}
           />
           <FormHelperText error>{errors?.firstName?.message}</FormHelperText>
         </FormControl>
@@ -66,9 +67,10 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
             disabled={wasDeleted}
             id="last-name"
             label="Last Name"
-            variant="outlined"
+            variant="filled"
             defaultValue={contact?.lastName || ''}
             {...register('lastName')}
+            error={!!errors?.lastName?.message}
           />
           <FormHelperText error>{errors.lastName?.message}</FormHelperText>
         </FormControl>
@@ -81,9 +83,10 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
             disabled={wasDeleted}
             id="email"
             label="Email"
-            variant="outlined"
+            variant="filled"
             defaultValue={contact?.email || ''}
             {...register('email')}
+            error={!!errors?.email?.message}
           />
           <FormHelperText error>{errors.email?.message}</FormHelperText>
         </FormControl>
@@ -96,9 +99,10 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
             disabled={wasDeleted}
             id="phone"
             label="Phone"
-            variant="outlined"
+            variant="filled"
             defaultValue={contact?.phone || ''}
             {...register('phone')}
+            error={!!errors?.phone?.message}
           />
           <FormHelperText error>{errors.phone?.message}</FormHelperText>
         </FormControl>
