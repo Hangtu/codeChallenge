@@ -8,8 +8,6 @@ This project was developed using Next.js.
 
 The CRUD was created on different paths using the same Form component.
 
-I didn't spend a lot of time designing the user interface, I focused more on making it functional at the moment.
-
 ### Frameworks & Libraries used in this project
 
 - Nextjs
@@ -25,6 +23,7 @@ I didn't spend a lot of time designing the user interface, I focused more on mak
 - Eslint
 - Prettier
 - Husky
+- Heroku live version
 
 ### Live Heroku Version
 
