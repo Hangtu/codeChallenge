@@ -31,6 +31,14 @@ This project was deployed using Heroku. Sometimes the page takes some seconds to
 
 App live version is in [Crud App Live Version](https://crud-challenge-hang.herokuapp.com/)
 
+## Test
+
+```bash
+npm run test [path]
+# or
+yarn test [path]
+```
+
 ## Getting Started
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

@@ -7,7 +7,7 @@ import {
 import axios from 'axios'
 import { FC, useState } from 'react'
 import React from 'react'
-import { ContactsFormComponent } from '../../../components/ContactsForm'
+import ContactsFormComponent from '../../../components/ContactsForm'
 import { SnackBarComponent } from '../../../components/SnackBar'
 import Head from 'next/head'
 

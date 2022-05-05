@@ -19,7 +19,7 @@ interface ContactsFormComponentProps {
   wasDeleted?: boolean
 }
 
-export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
+const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
   onSubmit,
   submitText,
   contact,
@@ -114,3 +114,5 @@ export const ContactsFormComponent: FC<ContactsFormComponentProps> = ({
     </Box>
   )
 }
+
+export default ContactsFormComponent
