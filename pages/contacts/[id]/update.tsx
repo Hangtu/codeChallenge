@@ -1,15 +1,16 @@
-import { GetContactById, SnackBarProperties } from '../../../models'
+import {
+  ContactFormModel,
+  DeleteUpdateFormProperties,
+  GetContactById,
+  SnackBarProperties,
+} from '../../../models'
 import axios from 'axios'
 import { FC, useState } from 'react'
 import React from 'react'
 import { ContactsFormComponent } from '../../../components/ContactsForm'
 import { SnackBarComponent } from '../../../components/SnackBar'
 
-interface DeleteContactPageProps {
-  user: GetContactById
-}
-
-const DeleteContactPage: FC<DeleteContactPageProps> = ({ user }) => {
+const UpdatePage: FC<DeleteUpdateFormProperties> = ({ contact }) => {
   const [snackBar, setSnackBar] = useState<SnackBarProperties>({
     status: false,
     message: '',
@@ -29,12 +30,11 @@ const DeleteContactPage: FC<DeleteContactPageProps> = ({ user }) => {
     })
   }
 
-  const deleteContact = (): void => {
-    console.log('Entro')
+  const updateContact = (contactUpdated: ContactFormModel): void => {
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API!}/${user.id}`)
+      .put(`${process.env.NEXT_PUBLIC_API!}/${contact.id}`, contactUpdated)
       .then(function () {
-        setSnackBar({ message: 'Contact Deleted', status: true })
+        setSnackBar({ message: 'Contact Updated', status: true })
       })
       .catch(function (error) {
         const err = error?.response?.data
@@ -51,7 +51,11 @@ const DeleteContactPage: FC<DeleteContactPageProps> = ({ user }) => {
           handleClose={handleClose as never}
         />
       )}
-      <ContactsFormComponent onSubmit={deleteContact} submitText={'Delete'} />
+      <ContactsFormComponent
+        onSubmit={updateContact}
+        submitText={'Update'}
+        contact={contact}
+      />
     </>
   )
 }
@@ -65,13 +69,11 @@ export async function getServerSideProps(context: { query: { id: string } }) {
       return response.data
     })
 
-  console.log(data)
-
   return {
     props: {
-      user: data,
+      contact: data,
     },
   }
 }
 
-export default DeleteContactPage
+export default UpdatePage

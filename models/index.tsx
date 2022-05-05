@@ -36,3 +36,7 @@ export interface SnackBarProperties {
   status: boolean
   message: string
 }
+
+export interface DeleteUpdateFormProperties {
+  contact: GetContactById
+}

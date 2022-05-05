@@ -44,13 +44,21 @@ const Home: NextPage<ContactsGetModel> = (props) => {
       <main className={styles.main}>
         <nav aria-label="secondary mailbox folders">
           <List>
-            {contacts.map((contact) => (
+            {contacts.map((contact, index) => (
               <>
                 <ListItem
+                  key={index}
                   secondaryAction={
                     <>
                       <IconButton edge="end" aria-label="delete">
-                        <EditIcon />
+                        <Link
+                          href={{
+                            pathname: '/contacts/[id]/update',
+                            query: { id: contact.id },
+                          }}
+                        >
+                          <EditIcon />
+                        </Link>
                       </IconButton>
                       <IconButton edge="end" aria-label="delete">
                         <Link
